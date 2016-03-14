@@ -197,6 +197,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return keyboardSize.CGRectValue().height
     }
     
+    
+    
+    
+    //MARK: Initialize Meme object
+    func save() {
+        //Create the Meme
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: generateMemedImage())
+    }
+    
     private func generateMemedImage() -> UIImage {
         
         //Hide Toolbar and Navbar
@@ -214,12 +223,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         navigationController?.navigationBarHidden = false
         
         return memedImage
-    }
-    
-    //MARK: Initialize Meme object
-    func save() {
-        //Create the Meme
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: generateMemedImage())
     }
 
 }
