@@ -8,14 +8,13 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var pickFromCameraBtn: UIBarButtonItem!
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
     @IBOutlet weak var toolBar: UIToolbar!
-    @IBOutlet weak var shareBtn: UIButton!
     
     let memeTextAttributes = [
         NSStrokeColorAttributeName : UIColor.blackColor(),
@@ -24,37 +23,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NSStrokeWidthAttributeName: -1.0
     ]
     
-    var textFieldFrame: CGRect?
-    var viewFrameChanged = false
-    
-    
     //MARK: UIViewController Delegate Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        topTextField.delegate = self
-        topTextField.defaultTextAttributes = memeTextAttributes
-        topTextField.text = "TOP"
-        topTextField.textAlignment = .Center
-        
-        
-        bottomTextField.delegate = self
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.text = "BOTTOM"
-        bottomTextField.textAlignment = .Center
-        
+        setupTextField(topTextField, defaultString: "TOP")
+        setupTextField(bottomTextField, defaultString: "BOTTOM")
         
         imagePickerView.contentMode = .ScaleAspectFit
         
-        shareBtn.enabled = false
+        setShareBtnTo(false)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         //Disable the camera button if camera is unavailable in the current device.
-        pickFromCameraBtn.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
+        pickFromCameraBtn.enabled = UIImagePickerController.isSourceTypeAvailable(.Camera)
         
         //Subscribe keyboard notifications
         subscribeToKeyBoardNotifications()
@@ -63,17 +49,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
-        //Unscribe keyboard notifications
+        //Unsubscribe keyboard notifications
         unsubscribeToKeyBoardNotifications()
     }
     
     
     //MARK: UITextField Delegate Methods
-    
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        textFieldFrame = textField.frame
-        return true
-    }
     
     func textFieldDidBeginEditing(textField: UITextField) {
         //Clear text before editing
@@ -91,41 +72,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //MARK: Button Selectors
     
     @IBAction func pickAnImageFromAlbum(sender: AnyObject) {
-        
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        imagePickerController.delegate = self
-        self.presentViewController(imagePickerController, animated: true, completion: nil)
+        presentImagePickerViewControllerBySourceType(.PhotoLibrary)
     }
     
     @IBAction func pickAnImageFromCamera(sender: AnyObject) {
-        
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.sourceType = UIImagePickerControllerSourceType.Camera
-        imagePickerController.delegate = self
-        self.presentViewController(imagePickerController, animated: true, completion: nil)
+        presentImagePickerViewControllerBySourceType(.Camera)
     }
     
     @IBAction func shareMeme(sender: AnyObject) {
         let memedImage = generateMemedImage()
         let activityViewController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
-        self.presentViewController(activityViewController, animated: true, completion: nil)
+        presentViewController(activityViewController, animated: true, completion: nil)
         
         activityViewController.completionWithItemsHandler = {(activityType, completed:Bool, returnedItems:[AnyObject]?, error: NSError?) in
             
-            // Return if cancelled
-            if (!completed) {
-                return
+            if (completed) {
+                self.save()
+                self.dismissViewControllerAnimated(true, completion: nil)
             }
-            
-            //activity complete
-            self.save()
-            self.dismissViewControllerAnimated(true, completion: nil)
-            
         }
-        
-        
-        
     }
     
 
@@ -133,7 +98,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePickerView.image = nil
         topTextField.text = "TOP"
         bottomTextField.text = "BOTTOM"
-        shareBtn.enabled = false
+        setShareBtnTo(false)
     }
     
     
@@ -144,7 +109,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage {
             imagePickerView.image = image
-            shareBtn.enabled = true
+            
         }
         
         dismissViewControllerAnimated(true, completion: nil)
@@ -172,22 +137,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func keyboardWillShow(notification: NSNotification) {
-        
-        let keyboardHeight = getKeyboardHeight(notification)
-        
-        if let frame = textFieldFrame {
-            if frame.origin.y + frame.size.height > self.view.frame.height - keyboardHeight {
-                self.view.frame.origin.y -= keyboardHeight
-                viewFrameChanged = true
-            }
+        if bottomTextField.isFirstResponder() {
+            self.view.frame.origin.y -= getKeyboardHeight(notification)
         }
-        
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        if viewFrameChanged {
-            self.view.frame.origin.y += getKeyboardHeight(notification)
-            viewFrameChanged = false
+        if bottomTextField.isFirstResponder() {
+            self.view.frame.origin.y = 0
         }
     }
     
@@ -198,12 +155,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     
-    
-    
     //MARK: Initialize Meme object
     func save() {
         //Create the Meme
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: generateMemedImage())
+        
     }
     
     private func generateMemedImage() -> UIImage {
@@ -223,6 +179,27 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         navigationController?.navigationBarHidden = false
         
         return memedImage
+    }
+    
+    //MARK: Utility methods
+    
+    private func setupTextField(textField: UITextField, defaultString: String) {
+        textField.delegate = self
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.text = defaultString
+        textField.textAlignment = .Center
+    }
+    
+    private func setShareBtnTo(opt: Bool) {
+        navigationItem.leftBarButtonItem?.enabled = opt
+    }
+    
+    private func presentImagePickerViewControllerBySourceType(souceType:UIImagePickerControllerSourceType) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = souceType
+        imagePickerController.delegate = self
+        presentViewController(imagePickerController, animated: true, completion: nil)
+        setShareBtnTo(true)
     }
 
 }

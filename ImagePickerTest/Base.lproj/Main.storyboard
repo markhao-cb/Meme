@@ -6,10 +6,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Meme Editor View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Meme" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MemeEditorViewController" customModule="Meme" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -28,13 +28,13 @@
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="AYc-RE-xdg"/>
                                     <barButtonItem title="Album" id="Gxo-63-RBj">
                                         <connections>
-                                            <action selector="pickAnImageFromAlbum:" destination="BYZ-38-t0r" id="0nO-jT-FPu"/>
+                                            <action selector="pickAnImageFromAlbum:" destination="BYZ-38-t0r" id="PLk-nL-xCE"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Rfn-td-UfH"/>
                                     <barButtonItem title="Camera" id="Rxa-Km-ISL">
                                         <connections>
-                                            <action selector="pickAnImageFromCamera:" destination="BYZ-38-t0r" id="uNA-Q9-66U"/>
+                                            <action selector="pickAnImageFromCamera:" destination="BYZ-38-t0r" id="HGJ-fv-xxH"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="5Hh-E2-Jhz"/>
@@ -83,34 +83,28 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2xp-Tq-4kM">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="jCM-qR-9pX">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pOB-zE-xxD">
-                                <rect key="frame" x="16" y="7" width="71" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Share"/>
-                                <connections>
-                                    <action selector="shareMeme:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KES-OH-P95"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="action" id="jCM-qR-9pX">
+                            <connections>
+                                <action selector="shareMeme:" destination="BYZ-38-t0r" id="bJt-aT-a7Y"/>
+                            </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="Uls-Wi-NGO">
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" style="plain" id="Uls-Wi-NGO">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="erR-8c-oKr">
                                 <rect key="frame" x="233" y="7" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
-                                    <action selector="resetEditor:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FIT-04-WtE"/>
+                                    <action selector="resetEditor:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fUN-HT-fbu"/>
                                 </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="bottomTextField" destination="XsM-pf-WZ8" id="Y0l-wZ-Pe1"/>
-                        <outlet property="imagePickerView" destination="Jjq-1z-O27" id="eKn-A6-zY4"/>
-                        <outlet property="pickFromCameraBtn" destination="Rxa-Km-ISL" id="asq-4D-plQ"/>
-                        <outlet property="shareBtn" destination="pOB-zE-xxD" id="I9f-H2-MeM"/>
-                        <outlet property="toolBar" destination="wiC-Da-yWi" id="0qy-Rw-bpT"/>
-                        <outlet property="topTextField" destination="Yz9-sE-4NB" id="rbm-aa-3Bv"/>
+                        <outlet property="bottomTextField" destination="XsM-pf-WZ8" id="afH-Bb-tDQ"/>
+                        <outlet property="imagePickerView" destination="Jjq-1z-O27" id="YLP-hi-JKD"/>
+                        <outlet property="pickFromCameraBtn" destination="Rxa-Km-ISL" id="Ao5-0P-IeP"/>
+                        <outlet property="toolBar" destination="wiC-Da-yWi" id="jE5-5S-Dqb"/>
+                        <outlet property="topTextField" destination="Yz9-sE-4NB" id="cCa-ys-d5Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
