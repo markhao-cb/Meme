@@ -6,4 +6,12 @@
 //  Copyright © 2016 Yu Qi Hao. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class MemeTableViewCell: UITableViewCell {
+
+    @IBOutlet weak var memeImageView: UIImageView!
+    @IBOutlet weak var memeLabel: UILabel!
+    
+    
+}

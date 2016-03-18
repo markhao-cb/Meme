@@ -15,6 +15,12 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
     @IBOutlet weak var toolBar: UIToolbar!
+    @IBOutlet weak var navBar: UINavigationBar!
+    @IBOutlet weak var shareBtn: UIBarButtonItem!
+    
+    var topString: String = "TOP"
+    var bottomString: String = "Bottom"
+    var originalImage: UIImage?
     
     let memeTextAttributes = [
         NSStrokeColorAttributeName : UIColor.blackColor(),
@@ -28,10 +34,14 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTextField(topTextField, defaultString: "TOP")
-        setupTextField(bottomTextField, defaultString: "BOTTOM")
+        setupTextField(topTextField, defaultString: topString)
+        setupTextField(bottomTextField, defaultString: bottomString)
         
         imagePickerView.contentMode = .ScaleAspectFit
+        
+        if let image = originalImage {
+            imagePickerView.image = image
+        }
         
         setShareBtnTo(false)
     }
@@ -44,6 +54,10 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         //Subscribe keyboard notifications
         subscribeToKeyBoardNotifications()
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -59,6 +73,15 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     func textFieldDidBeginEditing(textField: UITextField) {
         //Clear text before editing
         textField.text = ""
+    }
+    
+    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+        if  textField.text != "" {
+            topTextField.isFirstResponder() ? (topString = textField.text!) : (bottomString = textField.text!)
+        } else {
+            topTextField.isFirstResponder() ? (topTextField.text = topString) : (bottomTextField.text = bottomString)
+        }
+        return true
     }
     
     
@@ -88,30 +111,30 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
             
             if (completed) {
                 self.save()
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismissViewControllerAnimated(true, completion:nil)
             }
         }
     }
     
 
     @IBAction func resetEditor(sender: AnyObject) {
-        imagePickerView.image = nil
-        topTextField.text = "TOP"
-        bottomTextField.text = "BOTTOM"
-        setShareBtnTo(false)
+        dismissViewControllerAnimated(true, completion:{() in
+//            self.imagePickerView.image = nil
+//            self.topTextField.text = "TOP"
+//            self.bottomTextField.text = "BOTTOM"
+//            self.setShareBtnTo(false)
+        })
     }
     
     
     //MARK: ImagePIckerController Delegate Methods
     
-    
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
         if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage {
             imagePickerView.image = image
-            
+            setShareBtnTo(true)
         }
-        
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -171,7 +194,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         //Hide Toolbar and Navbar
         toolBar.hidden = true
-        navigationController?.navigationBarHidden = true
+        navBar.hidden = true
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -181,7 +204,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         //Show Toolbar and Navbar
         toolBar.hidden = false
-        navigationController?.navigationBarHidden = false
+        navBar.hidden = false
         
         return memedImage
     }
@@ -196,7 +219,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     private func setShareBtnTo(opt: Bool) {
-        navigationItem.leftBarButtonItem?.enabled = opt
+        shareBtn.enabled = opt
     }
     
     private func presentImagePickerViewControllerBySourceType(souceType:UIImagePickerControllerSourceType) {
@@ -204,7 +227,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         imagePickerController.sourceType = souceType
         imagePickerController.delegate = self
         presentViewController(imagePickerController, animated: true, completion: nil)
-        setShareBtnTo(true)
     }
 
 }
