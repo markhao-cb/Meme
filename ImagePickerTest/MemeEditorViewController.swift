@@ -192,6 +192,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
+        
         view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
         let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

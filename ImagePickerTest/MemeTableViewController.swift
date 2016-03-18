@@ -51,10 +51,8 @@ class MemeTableViewController: MemeViewController, UITableViewDataSource, UITabl
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-
-        let senderIsTableViewCell:Bool = (sender?.isKindOfClass(MemeTableViewCell))!
         
-        if senderIsTableViewCell {
+        if segue.identifier == "viewDetail" {
             let detailViewController = segue.destinationViewController as! MemeDetailViewController
             let indexPath = memeTableView.indexPathForSelectedRow!
             let selectedMeme = memes[indexPath.row]

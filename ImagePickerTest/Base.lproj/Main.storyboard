@@ -17,6 +17,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jjq-1z-O27">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yz9-sE-4NB" userLabel="TopTextField">
+                                <rect key="frame" x="0.0" y="108" width="320" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="gKe-Fj-0uw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XsM-pf-WZ8" userLabel="BottomTextField">
+                                <rect key="frame" x="0.0" y="400" width="320" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="B4A-8M-FiW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Og-EU-dYj">
                                 <rect key="frame" x="-4" y="0.0" width="328" height="44"/>
                                 <constraints>
@@ -37,25 +57,6 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jjq-1z-O27">
-                                <rect key="frame" x="0.0" y="44" width="320" height="480"/>
-                            </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yz9-sE-4NB" userLabel="TopTextField">
-                                <rect key="frame" x="0.0" y="108" width="320" height="52"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="52" id="gKe-Fj-0uw"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XsM-pf-WZ8" userLabel="BottomTextField">
-                                <rect key="frame" x="0.0" y="400" width="320" height="52"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="52" id="B4A-8M-FiW"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                            </textField>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wiC-Da-yWi">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <constraints>
@@ -90,9 +91,9 @@
                             <constraint firstItem="wiC-Da-yWi" firstAttribute="leading" secondItem="Jjq-1z-O27" secondAttribute="leading" id="QRT-q6-k5k"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2Og-EU-dYj" secondAttribute="trailing" constant="-20" id="Uxj-jV-OMj"/>
                             <constraint firstItem="2Og-EU-dYj" firstAttribute="centerX" secondItem="Jjq-1z-O27" secondAttribute="centerX" id="Ybe-7V-udV"/>
-                            <constraint firstItem="wiC-Da-yWi" firstAttribute="top" secondItem="Jjq-1z-O27" secondAttribute="bottom" id="YnO-ZK-eR2"/>
+                            <constraint firstItem="wiC-Da-yWi" firstAttribute="top" secondItem="Jjq-1z-O27" secondAttribute="bottom" constant="-44" id="YnO-ZK-eR2"/>
                             <constraint firstItem="wiC-Da-yWi" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="bbA-mg-HAn"/>
-                            <constraint firstItem="2Og-EU-dYj" firstAttribute="bottom" secondItem="Jjq-1z-O27" secondAttribute="top" id="d2s-MD-6EC"/>
+                            <constraint firstItem="2Og-EU-dYj" firstAttribute="bottom" secondItem="Jjq-1z-O27" secondAttribute="top" constant="44" id="d2s-MD-6EC"/>
                             <constraint firstItem="wiC-Da-yWi" firstAttribute="leading" secondItem="XsM-pf-WZ8" secondAttribute="leading" id="lp9-uR-N2z"/>
                             <constraint firstItem="wiC-Da-yWi" firstAttribute="top" secondItem="XsM-pf-WZ8" secondAttribute="bottom" constant="72" id="pMk-V9-TDr"/>
                             <constraint firstItem="2Og-EU-dYj" firstAttribute="centerX" secondItem="Yz9-sE-4NB" secondAttribute="centerX" id="ro6-9h-Itc"/>
@@ -112,7 +113,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-650" y="-653"/>
+            <point key="canvasLocation" x="-118" y="-653"/>
         </scene>
         <!--Meme Collection View Controller-->
         <scene sceneID="zNa-Az-i3a">
@@ -157,7 +158,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="memeImageView" destination="m5k-BK-pL5" id="rmQ-bi-ZXl"/>
-                                            <segue destination="Dlt-G2-dZE" kind="push" id="v9D-Ok-vaL"/>
+                                            <segue destination="Dlt-G2-dZE" kind="push" identifier="viewDetail" id="v9D-Ok-vaL"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -183,7 +184,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="biR-q1-6Sn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="244" y="531"/>
+            <point key="canvasLocation" x="776" y="606"/>
         </scene>
         <!--Meme Table View Controller-->
         <scene sceneID="G7A-4A-1DL">
@@ -234,7 +235,7 @@
                                         <connections>
                                             <outlet property="memeImageView" destination="8YW-eI-ePL" id="gH2-xQ-4Fh"/>
                                             <outlet property="memeLabel" destination="CTx-Cy-wQ0" id="VWv-pE-l3w"/>
-                                            <segue destination="Dlt-G2-dZE" kind="push" id="Cjc-ej-B8h"/>
+                                            <segue destination="Dlt-G2-dZE" kind="push" identifier="viewDetail" id="Cjc-ej-B8h"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -260,7 +261,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oj0-wH-zwN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="244" y="-98"/>
+            <point key="canvasLocation" x="776" y="-98"/>
         </scene>
         <!--Meme Detail View Controller-->
         <scene sceneID="m4L-ZJ-ea7">
@@ -276,6 +277,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c1e-Im-64Z">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -293,7 +295,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t4K-mW-t8P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="849" y="217"/>
+            <point key="canvasLocation" x="1279" y="217"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="HIn-i9-Zzj">
@@ -311,7 +313,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cpG-p7-enX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-828" y="217"/>
+            <point key="canvasLocation" x="-401" y="192"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="els-SQ-GDW">
@@ -333,7 +335,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YY9-Id-CK5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-288" y="-98"/>
+            <point key="canvasLocation" x="244" y="-98"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="etU-ET-dcL">
@@ -354,7 +356,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kXh-xm-RLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-288" y="531"/>
+            <point key="canvasLocation" x="244" y="600"/>
         </scene>
     </scenes>
     <resources>
@@ -362,6 +364,6 @@
         <image name="Table" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="v9D-Ok-vaL"/>
+        <segue reference="Cjc-ej-B8h"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -53,9 +53,7 @@ class MemeCollectionViewController: MemeViewController, UICollectionViewDataSour
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        let senderIsCollectionViewCell:Bool = (sender?.isKindOfClass(MemeCollectionViewCell))!
-        
-        if senderIsCollectionViewCell {
+        if segue.identifier == "viewDetail" {
             let detailViewController = segue.destinationViewController as! MemeDetailViewController
             let cell = sender as! MemeCollectionViewCell
             let indexPath = memeCollectionView.indexPathForCell(cell)
