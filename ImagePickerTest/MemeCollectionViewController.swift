@@ -51,12 +51,20 @@ class MemeCollectionViewController: MemeViewController, UICollectionViewDataSour
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        let selectedMeme = memes[indexPath.row]
-        addOrEditMeme(selectedMeme)
+        let senderIsCollectionViewCell:Bool = (sender?.isKindOfClass(MemeCollectionViewCell))!
+        
+        if senderIsCollectionViewCell {
+            let detailViewController = segue.destinationViewController as! MemeDetailViewController
+            let cell = sender as! MemeCollectionViewCell
+            let indexPath = memeCollectionView.indexPathForCell(cell)
+            let selectedMeme = memes[(indexPath?.row)!]
+            detailViewController.meme = selectedMeme
+        }
         
     }
+    
     
     
     

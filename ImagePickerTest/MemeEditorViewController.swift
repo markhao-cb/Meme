@@ -19,8 +19,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var shareBtn: UIBarButtonItem!
     
     var topString: String = "TOP"
-    var bottomString: String = "Bottom"
+    var bottomString: String = "BOTTOM"
     var originalImage: UIImage?
+    
     
     let memeTextAttributes = [
         NSStrokeColorAttributeName : UIColor.blackColor(),
@@ -34,16 +35,17 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setShareBtnTo(false)
+        
         setupTextField(topTextField, defaultString: topString)
         setupTextField(bottomTextField, defaultString: bottomString)
         
         imagePickerView.contentMode = .ScaleAspectFit
-        
+
         if let image = originalImage {
             imagePickerView.image = image
+            setShareBtnTo(true)
         }
-        
-        setShareBtnTo(false)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -118,12 +120,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
 
     @IBAction func resetEditor(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion:{() in
-//            self.imagePickerView.image = nil
-//            self.topTextField.text = "TOP"
-//            self.bottomTextField.text = "BOTTOM"
-//            self.setShareBtnTo(false)
-        })
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     
@@ -180,14 +177,11 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     //MARK: Initialize Meme object
     func save() {
+        
         //Create the Meme
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: generateMemedImage())
-        
+        let newMeme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: generateMemedImage())
         //Add it to the memes array in the Application Delegate
-        let object = UIApplication.sharedApplication().delegate
-        let appDelegate = object as! AppDelegate
-        appDelegate.memes.append(meme)
-        
+        Utilities.appDelegate.memes.append(newMeme)
     }
     
     private func generateMemedImage() -> UIImage {

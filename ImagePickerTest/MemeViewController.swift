@@ -13,10 +13,11 @@ class MemeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Sent Memes"
+        navigationItem.title = "Sent Memes"
         
         //create "Add" button
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addMeme")
+        
     }
 
     
@@ -35,11 +36,7 @@ class MemeViewController: UIViewController {
     }
     
     func removeMemeFromAppDelegate(index: Int) {
-        let object = UIApplication.sharedApplication().delegate
-        let appDelegate = object as! AppDelegate
-        print("meme count \(appDelegate.memes.count)")
-        print("remove at index \(index)")
-        appDelegate.memes.removeAtIndex(index)
+        Utilities.appDelegate.memes.removeAtIndex(index)
     }
 }
 

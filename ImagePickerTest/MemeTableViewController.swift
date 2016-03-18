@@ -23,7 +23,7 @@ class MemeTableViewController: MemeViewController, UITableViewDataSource, UITabl
     }
     
     
-    //MARK: UITableView datasource/delegate methods
+    //MARK: UITableView datasource & delegate methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return memes.count
     }
@@ -33,6 +33,7 @@ class MemeTableViewController: MemeViewController, UITableViewDataSource, UITabl
         let meme = memes[indexPath.row]
         
         cell.memeImageView.image = meme.memedImage
+        
         cell.memeLabel.text = meme.topText + " " + meme.bottomText
         
         return cell
@@ -49,5 +50,17 @@ class MemeTableViewController: MemeViewController, UITableViewDataSource, UITabl
         }
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+
+        let senderIsTableViewCell:Bool = (sender?.isKindOfClass(MemeTableViewCell))!
+        
+        if senderIsTableViewCell {
+            let detailViewController = segue.destinationViewController as! MemeDetailViewController
+            let indexPath = memeTableView.indexPathForSelectedRow!
+            let selectedMeme = memes[indexPath.row]
+            detailViewController.meme = selectedMeme
+        }
+        
+    }
     
 }

@@ -14,4 +14,8 @@ struct Meme {
     var bottomText: String
     var originalImage: UIImage
     var memedImage: UIImage
+    
+    func isEqualTo(meme: Meme) -> Bool {
+        return topText == meme.topText && bottomText == meme.bottomText && originalImage == meme.originalImage && memedImage == meme.memedImage
+    }
 }
